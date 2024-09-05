@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 2;
-    public float jumpForce = 4;
+    public float moveSpeed = 8;
+    public float jumpForce = 17;
     public float gravityScale = 5f;
     public float rotateSpeed = 10f;
     public CharacterController character;
+    public Animator anim;
     private float yStore;
     private CameraController cam;
     private Vector3 moveAmount;
@@ -43,7 +44,8 @@ public class PlayerController : MonoBehaviour
         {
             if (moveAmount != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(moveAmount);
+                 Quaternion newRot = Quaternion.LookRotation(moveAmount);
+				 transform.rotation = Quaternion.Slerp(transform.rotation, newRot, rotateSpeed * Time.deltaTime);
             }
         }
 
@@ -57,6 +59,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        character.Move(new Vector3(moveAmount.x * moveSpeed, moveAmount.y, moveAmount.z * moveSpeed * moveSpeed) * Time.deltaTime);
+        character.Move(new Vector3(moveAmount.x * moveSpeed, moveAmount.y, moveAmount.z * moveSpeed) * Time.deltaTime);
+
+        float moveVel = new Vector3(moveAmount.x, 0f, moveAmount.z).magnitude * moveSpeed;
+        anim.SetFloat("speed", moveVel);
+        anim.SetBool("isGrounded", character.isGrounded);
+        anim.SetFloat("yVel", moveAmount.y);
     }
 }
