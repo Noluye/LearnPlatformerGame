@@ -24,4 +24,9 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, offset.y, transform.position.z);
         }
     }
+
+    public void snapToTaget()
+    {
+        transform.position = target.position + offset;
+    }
 }
