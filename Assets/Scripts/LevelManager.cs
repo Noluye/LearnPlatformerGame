@@ -59,5 +59,7 @@ public class LevelManager : MonoBehaviour
         respawning = false;
 
         UIController.instance.FadeFromBlack();
+
+        PlayerHealthController.instance.FillHealth();
     }
 }
