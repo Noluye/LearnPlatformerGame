@@ -8,6 +8,10 @@ public class CameraController : MonoBehaviour
     private Vector3 offset;
     public float moveSpeed = 15f;  // this is for camera following the character.
     // Start is called before the first frame update
+
+    [HideInInspector]
+    public Transform endCamPos;
+
     void Start()
     {
         target = FindObjectOfType<PlayerController>().transform;
@@ -18,6 +22,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (endCamPos != null)
+        {
+            // at the end point
+            transform.position = Vector3.Lerp(transform.position, endCamPos.position, moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, endCamPos.rotation, moveSpeed * Time.deltaTime);
+            return;
+        }
+
         transform.position = Vector3.Lerp(transform.position, target.position + offset, moveSpeed * Time.deltaTime);
         if (transform.position.y < offset.y)
         {

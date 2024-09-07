@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale <= 0.00001f) return;
+        if (Time.timeScale <= 0.00001f || LevelManager.instance.levelComplete) return;
 
         yStore = moveAmount.y;
 
