@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class UIController : MonoBehaviour
     public TMP_Text healthText, timeText;
 
     public TMP_Text coinText, crystalText;
+
+    public GameObject pauseScreen;
+
+    public string mainMenu, levelSelect;
 
     private void Awake()
     {
@@ -41,7 +46,10 @@ public class UIController : MonoBehaviour
                 Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime));
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseUnpause();
+        }
     }
 
     public void FadeToBlack()
@@ -61,5 +69,33 @@ public class UIController : MonoBehaviour
         healthText.text = "HEALTH: " + health + "/" + PlayerHealthController.instance.maxHealth;
         healthSlider.maxValue = PlayerHealthController.instance.maxHealth;
         healthSlider.value = health;
+    }
+
+    public void PauseUnpause()
+    {
+        pauseScreen.SetActive(!pauseScreen.activeSelf);
+        if (pauseScreen.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1f;
+        }
+        
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenu);
+    }
+
+    public void GoToLevelSelect()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(levelSelect);
     }
 }
