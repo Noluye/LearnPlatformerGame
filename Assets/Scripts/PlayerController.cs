@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveAmount;
     public GameObject jumpParticle, landingParticle;
     private bool lastGrounded;
+
+    public float bounceForce;
     
     // Start is called before the first frame update
     void Start()
@@ -78,5 +80,11 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("speed", moveVel);
         anim.SetBool("isGrounded", character.isGrounded);
         anim.SetFloat("yVel", moveAmount.y);
+    }
+
+    public void Bounce()
+    {
+        moveAmount.y = bounceForce;
+        character.Move(Vector3.up * bounceForce * Time.deltaTime);
     }
 }
