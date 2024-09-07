@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class LevelManager : MonoBehaviour
     public int currentCoins = 0;
     public int currentCrystals = 0;
 
+    public float waitToEndLevel = 2f;
+    public bool levelComplete;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +49,12 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (levelComplete) {
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation,
+                Quaternion.Euler(0f, 180f, 0f), 10f * Time.deltaTime);
+            return;
+        }
+
         levelTimer += Time.deltaTime;
         UIController.instance.timeText.text = levelTimer.ToString("0");
 
@@ -104,5 +113,23 @@ public class LevelManager : MonoBehaviour
         UIController.instance.crystalText.text = currentCrystals.ToString();
 
         PlayerPrefs.SetInt("Crystals", currentCrystals);
+    }
+
+    public void EndLevel(string nextLevel)
+    {
+        StartCoroutine(EndLevelCo(nextLevel));
+    }
+
+    IEnumerator EndLevelCo(string nextLevel)
+    {
+        levelComplete = true;
+
+        //player.anim.SetTrigger("endLevel");
+
+        yield return new WaitForSeconds(waitToEndLevel - 1f);
+        UIController.instance.FadeToBlack();
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene(nextLevel);
     }
 }
