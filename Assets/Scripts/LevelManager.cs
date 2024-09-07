@@ -21,6 +21,9 @@ public class LevelManager : MonoBehaviour
     [HideInInspector]
     public Vector3 respawnPoint;
 
+    [HideInInspector]
+    public float levelTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +35,8 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        levelTimer += Time.deltaTime;
+        UIController.instance.timeText.text = levelTimer.ToString("0");
     }
 
     public void Respawn()
