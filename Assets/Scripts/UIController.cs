@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UIController : MonoBehaviour
     private bool isFadingFromBlack = false;
     public float fadeSpeed = 2f;
 
+    public Slider healthSlider;
+    public TMP_Text healthText, timeText;
     private void Awake()
     {
         instance = this;
@@ -48,5 +51,12 @@ public class UIController : MonoBehaviour
     {
         isFadingToBlack = false;
         isFadingFromBlack = true;
+    }
+
+    public void UpdateHealthDisplay(int health)
+    {
+        healthText.text = "HEALTH: " + health + "/" + PlayerHealthController.instance.maxHealth;
+        healthSlider.maxValue = PlayerHealthController.instance.maxHealth;
+        healthSlider.value = health;
     }
 }

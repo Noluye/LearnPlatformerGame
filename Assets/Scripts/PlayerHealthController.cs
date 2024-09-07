@@ -62,6 +62,7 @@ public class PlayerHealthController : MonoBehaviour
         invinceCounter = invinciblityLength;
 
         currentHealth--;
+        UIController.instance.UpdateHealthDisplay(currentHealth);
         if (currentHealth <= 0)
         {
             LevelManager.instance.Respawn();
@@ -71,5 +72,6 @@ public class PlayerHealthController : MonoBehaviour
     public void FillHealth()
     {
         currentHealth = maxHealth;
+        UIController.instance.UpdateHealthDisplay(currentHealth);
     }
 }
