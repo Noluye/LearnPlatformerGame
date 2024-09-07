@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        currentCrystals = PlayerPrefs.GetInt("Crystals");
+        currentCoins = PlayerPrefs.GetInt("Coins");
     }
 
     public float waitBeforeRespawning = 1;
@@ -24,12 +27,20 @@ public class LevelManager : MonoBehaviour
     [HideInInspector]
     public float levelTimer;
 
+    public int coinThreshold = 100;
+    public int currentCoins = 0;
+    public int currentCrystals = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
         respawnPoint = player.transform.position + Vector3.up;
         cam = FindObjectOfType<CameraController>();
+
+        UIController.instance.coinText.text = currentCoins.ToString();
+        UIController.instance.crystalText.text = currentCrystals.ToString();
     }
 
     // Update is called once per frame
@@ -37,6 +48,13 @@ public class LevelManager : MonoBehaviour
     {
         levelTimer += Time.deltaTime;
         UIController.instance.timeText.text = levelTimer.ToString("0");
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+#endif
     }
 
     public void Respawn()
@@ -65,5 +83,26 @@ public class LevelManager : MonoBehaviour
         UIController.instance.FadeFromBlack();
 
         PlayerHealthController.instance.FillHealth();
+    }
+
+    public void GetCoin()
+    {
+        currentCoins++;
+        if (currentCoins >= coinThreshold)
+        {
+            currentCoins -= coinThreshold;
+            GetCrytal();
+        }
+        UIController.instance.coinText.text = currentCoins.ToString();
+
+        PlayerPrefs.SetInt("Coins", currentCoins);
+    }
+
+    public void GetCrytal()
+    {
+        currentCrystals++;
+        UIController.instance.crystalText.text = currentCrystals.ToString();
+
+        PlayerPrefs.SetInt("Crystals", currentCrystals);
     }
 }
