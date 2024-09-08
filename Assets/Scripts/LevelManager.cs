@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LevelManager : MonoBehaviour
 {
@@ -91,20 +92,38 @@ public class LevelManager : MonoBehaviour
 
         UIController.instance.FadeFromBlack();
 
-        PlayerHealthController.instance.FillHealth();
+        PlayerHealthController.instance.FillAllStats();
+        player.DestroyShield();
     }
 
     public void GetCoin()
     {
         currentCoins++;
-        if (currentCoins >= coinThreshold)
-        {
-            currentCoins -= coinThreshold;
-            GetCrytal();
-        }
+        //if (currentCoins >= coinThreshold)
+        //{
+        //    currentCoins -= coinThreshold;
+        //    GetCrytal();
+        //}
         UIController.instance.coinText.text = currentCoins.ToString();
-
         PlayerPrefs.SetInt("Coins", currentCoins);
+    }
+
+    public bool UseCoin()
+    {
+        if (currentCoins == 0) return false;
+        currentCoins--;
+        UIController.instance.coinText.text = currentCoins.ToString();
+        PlayerPrefs.SetInt("Coins", currentCoins);
+        return true;
+    }
+
+    public bool UseCrystal()
+    {
+        if (currentCrystals == 0) return false;
+        currentCrystals--;
+        UIController.instance.crystalText.text = currentCrystals.ToString();
+        PlayerPrefs.SetInt("Crystals", currentCrystals);
+        return true;
     }
 
     public void GetCrytal()

@@ -13,8 +13,8 @@ public class UIController : MonoBehaviour
     private bool isFadingFromBlack = false;
     public float fadeSpeed = 2f;
 
-    public Slider healthSlider;
-    public TMP_Text healthText, timeText;
+    public Slider healthSlider, hungerSlider, sanitySlider;
+    public TMP_Text healthText, hungerText, sanityText, timeText;
 
     public TMP_Text coinText, crystalText;
 
@@ -69,6 +69,20 @@ public class UIController : MonoBehaviour
         healthText.text = "HEALTH: " + health + "/" + PlayerHealthController.instance.maxHealth;
         healthSlider.maxValue = PlayerHealthController.instance.maxHealth;
         healthSlider.value = health;
+    }
+
+    public void UpdateHungerDisplay(float hunger)
+    {
+        hungerText.text = "HUNGER: " + (hunger / PlayerHealthController.instance.maxHunger * 100.0f).ToString("0");
+        hungerSlider.maxValue = PlayerHealthController.instance.maxHunger;
+        hungerSlider.value = hunger;
+    }
+
+    public void UpdateSanityDisplay(float sanity)
+    {
+        sanityText.text = "SANITY: " + (sanity / PlayerHealthController.instance.maxSanity * 100.0f).ToString("0");
+        sanitySlider.maxValue = PlayerHealthController.instance.maxSanity;
+        sanitySlider.value = sanity;
     }
 
     public void PauseUnpause()
