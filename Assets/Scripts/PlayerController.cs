@@ -17,7 +17,12 @@ public class PlayerController : MonoBehaviour
     private bool lastGrounded;
 
     public float bounceForce;
-    
+
+    // attack
+    public GameObject shieldPrefab; // Assign the transparent sphere prefab in the inspector
+    private GameObject activeShield;
+    public float shieldDuration = 2f; // 2 minutes
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +45,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (Time.timeScale <= 0.00001f || LevelManager.instance.levelComplete) return;
+        
+        EatLogic();
 
         yStore = moveAmount.y;
 
@@ -90,4 +97,56 @@ public class PlayerController : MonoBehaviour
         moveAmount.y = bounceForce;
         character.Move(Vector3.up * bounceForce * Time.deltaTime);
     }
+
+    private void EatLogic()
+    {
+        if (Input.GetKeyUp(KeyCode.R))  // eat a coin
+        {
+            PlayerHealthController.instance.TryToEatCoin();
+        }
+        if (Input.GetKeyUp(KeyCode.T))  // eat a crystal
+        {
+            PlayerHealthController.instance.TryToEatCrystal();
+        }
+        if (Input.GetKey(KeyCode.G))  // meditation
+        {
+            PlayerHealthController.instance.AddSanity(4.0f * Time.deltaTime);
+        }
+        if (Input.GetKeyUp(KeyCode.F) && activeShield == null)  // rotate fight
+        {
+            if (PlayerHealthController.instance.TryToUseSanity(4))  // TODO
+            {
+                SpawnShield();
+            }
+        }
+        
+    }
+
+    private void SpawnShield()
+    {
+        // Spawn the transparent sphere around the character
+        activeShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+
+        // Make the sphere follow the character
+        activeShield.transform.SetParent(transform);
+
+        // Start coroutine to destroy the shield after 2 minutes
+        StartCoroutine(DestroyShieldAfterDuration(shieldDuration));
+    }
+
+    private IEnumerator DestroyShieldAfterDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        DestroyShield();
+    }
+
+    public void DestroyShield()
+    {
+        if (activeShield != null)
+        {
+            Destroy(activeShield); // Destroy the shield after the duration
+        }
+    }
+
 }
