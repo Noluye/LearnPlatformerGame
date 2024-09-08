@@ -13,12 +13,12 @@ public class Cristal : MonoBehaviour
 
     private void Start()
     {
-        uniqueID = SceneManager.GetActiveScene().name + uniqueID;
+        //uniqueID = SceneManager.GetActiveScene().name + uniqueID;
 
-        if (PlayerPrefs.HasKey(uniqueID) && PlayerPrefs.GetInt(uniqueID) == 1)
-        {
-            gameObject.SetActive(false);
-        }
+        //if (PlayerPrefs.HasKey(uniqueID) && PlayerPrefs.GetInt(uniqueID) == 1)
+        //{
+        //    gameObject.SetActive(false);
+        //}
 
 #if UNITY_EDITOR
         if (keepActiveForTesting)
