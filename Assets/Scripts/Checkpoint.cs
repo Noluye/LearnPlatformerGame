@@ -28,9 +28,9 @@ public class Checkpoint : MonoBehaviour
                 Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
                 foreach (Checkpoint checkpoint in checkpoints)
                 {
-                    checkpoint.anim.SetBool("Active", false);
+                    if (anim) checkpoint.anim.SetBool("Active", false);
                 }
-                anim.SetBool("Active", true);
+                if (anim) anim.SetBool("Active", true);
             }
         }
     }

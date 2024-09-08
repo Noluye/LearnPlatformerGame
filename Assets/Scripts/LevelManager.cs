@@ -130,6 +130,10 @@ public class LevelManager : MonoBehaviour
         UIController.instance.FadeToBlack();
         yield return new WaitForSeconds(1f);
 
+        if (nextLevel == "MainMenu")
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
         SceneManager.LoadScene(nextLevel);
     }
 }

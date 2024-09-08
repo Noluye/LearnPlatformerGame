@@ -60,17 +60,17 @@ public class PlayerController : MonoBehaviour
 
         if (character.isGrounded)
         {
-            jumpParticle.SetActive(false);
+            if (jumpParticle) jumpParticle.SetActive(false);
 
             if (!lastGrounded)
             {
-                landingParticle.SetActive(true);
+                if (landingParticle) landingParticle.SetActive(true);
             }
             
             if (Input.GetButtonDown("Jump"))
             {
                 moveAmount.y = jumpForce;
-                jumpParticle.SetActive(true);
+                if (jumpParticle) jumpParticle.SetActive(true);
             }
         }
 
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
         character.Move(new Vector3(moveAmount.x * moveSpeed, moveAmount.y, moveAmount.z * moveSpeed) * Time.deltaTime);
 
         float moveVel = new Vector3(moveAmount.x, 0f, moveAmount.z).magnitude * moveSpeed;
+        if (anim == null) return;
         anim.SetFloat("speed", moveVel);
         anim.SetBool("isGrounded", character.isGrounded);
         anim.SetFloat("yVel", moveAmount.y);
