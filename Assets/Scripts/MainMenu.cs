@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
 
     public void Continue()
     {
-
+        // TODO
     }
 
     public void QuitGame()
