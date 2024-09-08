@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     private GameObject activeShield;
     public float shieldDuration = 2f; // 2 minutes
 
+    // Multiple jump variables
+    public int maxJumps = 2; // Maximum number of jumps allowed
+    private int currentJumps = 0; // Track how many jumps the player has performed
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +71,9 @@ public class PlayerController : MonoBehaviour
 
         if (character.isGrounded)
         {
+            // Reset jump count when grounded
+            currentJumps = 0;
+
             if (jumpParticle) jumpParticle.SetActive(false);
 
             if (!lastGrounded)
@@ -76,8 +83,14 @@ public class PlayerController : MonoBehaviour
             
             if (Input.GetButtonDown("Jump"))
             {
-                moveAmount.y = jumpForce;
-                if (jumpParticle) jumpParticle.SetActive(true);
+                PerformJump();
+            }
+        } else
+        {
+            // Allow additional jumps while not grounded
+            if (Input.GetButtonDown("Jump") && currentJumps < maxJumps && (PlayerHealthController.instance.TryToUseSanity(1)))
+            {
+                PerformJump(2);
             }
         }
 
@@ -90,6 +103,14 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("speed", moveVel);
         anim.SetBool("isGrounded", character.isGrounded);
         anim.SetFloat("yVel", moveAmount.y);
+    }
+
+    private void PerformJump(float additional = 0)
+    {
+        moveAmount.y = jumpForce;
+        currentJumps++;
+
+        if (jumpParticle) jumpParticle.SetActive(true);
     }
 
     public void Bounce()
