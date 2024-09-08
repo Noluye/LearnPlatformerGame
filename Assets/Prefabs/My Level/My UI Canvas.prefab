@@ -2844,7 +2844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7440957176692761800, guid: 522123b72e174b849b8e6bddab665fa2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -262.81897
+      value: -146
       objectReference: {fileID: 0}
     - target: {fileID: 7440957176692761800, guid: 522123b72e174b849b8e6bddab665fa2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3003,6 +3003,10 @@ PrefabInstance:
     - target: {fileID: 7440957176692761801, guid: 522123b72e174b849b8e6bddab665fa2, type: 3}
       propertyPath: m_Name
       value: Level Select Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440957176692761801, guid: 522123b72e174b849b8e6bddab665fa2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7440957176692761803, guid: 522123b72e174b849b8e6bddab665fa2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

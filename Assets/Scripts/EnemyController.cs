@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
                 theRB.velocity = moveDirection * moveSpeed;
                 theRB.velocity = new Vector3(theRB.velocity.x, yStore, theRB.velocity.z);
 
-                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoints].position) <= .1f)
+                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoints].position) <= .8f)
                 {
                     NextPatrolPoint();
                 }
