@@ -8595,7 +8595,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8022138445732673316, guid: 0c7d39122fc811d4aabf3167cbf1e2db, type: 3}
       propertyPath: hungerSpeed
-      value: 1.7
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8022138445732673320, guid: 0c7d39122fc811d4aabf3167cbf1e2db, type: 3}
       propertyPath: m_RootOrder

@@ -4919,6 +4919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7de1a3d3ad9d44fa5ad05a8501f125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mediationSpeed: 7
+  shieldSanityConsumed: 8
+  jumpSanityConsumed: 2
   moveSpeed: 8
   jumpForce: 17
   gravityScale: 5
@@ -4928,6 +4931,9 @@ MonoBehaviour:
   jumpParticle: {fileID: 0}
   landingParticle: {fileID: 0}
   bounceForce: 15
+  shieldPrefab: {fileID: 0}
+  shieldDuration: 2
+  maxJumps: 2
 --- !u!143 &8022138445732673323
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4959,6 +4965,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  hungerSpeed: 3
+  maxHunger: 100
+  maxSanity: 100
   invinciblityLength: 1.7
   modelDisplay:
   - {fileID: 8970592841791252585}

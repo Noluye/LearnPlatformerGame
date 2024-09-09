@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float mediationSpeed = 7.0f;
+    public float shieldSanityConsumed = 8.0f;
+    public float jumpSanityConsumed = 2.0f;
+
     public float moveSpeed = 8;
     public float jumpForce = 17;
     public float gravityScale = 5f;
@@ -131,11 +135,11 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.G))  // meditation
         {
-            PlayerHealthController.instance.AddSanity(4.0f * Time.deltaTime);
+            PlayerHealthController.instance.AddSanity(mediationSpeed * Time.deltaTime);
         }
         if (Input.GetKeyUp(KeyCode.F) && activeShield == null)  // rotate fight
         {
-            if (PlayerHealthController.instance.TryToUseSanity(4))  // TODO
+            if (PlayerHealthController.instance.TryToUseSanity(shieldSanityConsumed))  // TODO
             {
                 SpawnShield();
             }
