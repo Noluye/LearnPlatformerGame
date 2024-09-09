@@ -10,7 +10,7 @@ public class PlayerHealthController : MonoBehaviour
     private float currentSanity;
     private float currentHunger;
     public int maxHealth = 5;
-    public float hungerSpeed = 1.5f;
+    public float hungerSpeed = 3.5f;
     public float maxHunger = 100.0f;
     public float maxSanity = 100.0f;
     public float invinciblityLength = 1.7f;
@@ -128,7 +128,7 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
-    public bool TryToUseSanity(int sanity)
+    public bool TryToUseSanity(float sanity)
     {
         if (currentSanity < sanity) return false;
 
